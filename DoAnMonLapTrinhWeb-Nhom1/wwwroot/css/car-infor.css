@@ -1,0 +1,383 @@
+.car__header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    border-bottom: 1px solid #ccc;
+    background-color: #fff;
+    z-index: 3;
+}
+
+.car__infor-navbar {
+    display: flex;
+    list-style: none;
+    grid-gap: 12px;
+    gap: 12px;
+    padding: 20px 0;
+}
+
+.car__infor-items {
+    padding: 12px 16px;
+    color: #000;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.car__infor-item {
+    color: #000;
+}
+
+.car__body {
+    position: relative;
+    z-index: 2;
+}
+
+.car__body-infor {
+    position: relative;
+    padding-bottom: 32px;
+}
+
+.car__img {
+    display: flex;
+    position: relative;
+    grid-gap: 16px;
+    gap: 16px;
+    width: 100%;
+}
+
+.img__main {
+    position: relative;
+    width: calc(68% - 16px);
+    height: 100%;
+}
+
+    .img__main img {
+        width: 100%;
+        height: 600px;
+        border-radius: 16px;
+        object-fit: cover;
+    }
+
+.img__sub {
+    width: 32%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 16px;
+    gap: 16px;
+}
+
+.img__sub-item {
+    width: 100%;
+}
+
+    .img__sub-item img {
+        width: 100%;
+        height: 187px;
+        border-radius: 16px;
+        object-fit: cover;
+    }
+
+.car__details {
+}
+
+.car__detail-container {
+    display: flex;
+    grid-gap: 16px;
+    gap: 16px;
+}
+
+.car__detail {
+    width: 68%
+}
+
+.car__detail-infor {
+    padding-left: 40px;
+    padding-bottom: 24px;
+    border-bottom: 2px solid #ccc;
+}
+
+.car__detail-name {
+    font-size: 40px;
+    font-weight: 600;
+}
+
+.car__detail-address {
+    font-size: 16px;
+    color: #767676;
+}
+
+.car__detail-category {
+    border-radius: 100px;
+    padding: 4px 8px;
+    background-color: #EEF7FF;
+    width: 75px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.car__detail-header {
+    margin-top: 16px;
+}
+
+.car__detail-content {
+    padding-top: 12px;
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 24px;
+}
+
+.car__detail-content-item {
+    display: flex;
+    gap: 16px;
+}
+
+.car__detail-content-icon {
+    font-size: 30px;
+    color: rgb(55, 175, 55);
+    display: flex;
+    align-items: center;
+}
+
+.car__detail-content-title {
+}
+
+.title-sub {
+    font-size: 20px;
+    font-weight: 400;
+    color: #767676;
+    margin-bottom: 8px;
+}
+
+.title-main {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.car__detail-sidebar {
+    width: 32%;
+}
+
+.car__detail-des {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 16px;
+}
+
+.car__detail-des-title {
+    font-size: 24px;
+    margin-top: 16px;
+}
+
+.car__detail-des-cmt {
+    font-size: 16px;
+    color: #767676;
+}
+
+.car__detail-sidebar {
+    padding: 16px 8px;
+    background: #f7fbff;
+    border: 1px solid #f4f4f4;
+    border-radius: 10px;
+}
+
+.car__sidebar-date {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #fff;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    padding: 8px 8px;
+}
+
+.line {
+    border-right: 1px solid #ccc;
+}
+
+.car__sidebar-rent {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 8px;
+    gap: 8px;
+    max-width: 50%;
+}
+
+.sidebar__input {
+    border: none;
+    background-color: #f4f4f4;
+    padding: 4px 0;
+    border-radius: 4px;
+}
+
+.car__sidebar-address {
+    position: relative;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #fff;
+    margin-bottom: 12px;
+    border: 1px solid #e0e0e0;
+    padding: 8px 8px;
+}
+
+.sidebar__address-sub {
+    font-size: 14px;
+    padding-bottom: 8px;
+}
+
+
+.sidebar__address-main {
+    font-size: 16px;
+}
+
+.car__sidebar-price {
+    padding: 8px 0 16px;
+}
+
+.price__item {
+    padding: 8px 0;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+}
+
+.price__sub {
+    font-size: 14px;
+    font-weight: 400;
+    color: #767676;
+}
+
+.price__cost {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn__rent {
+    width: 100%;
+    background-color: #5fcf86;
+    padding: 16px 16px;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.car__cmt {
+    border-radius: 10px;
+    background: #f7fbff;
+    border: 1px solid #f4f4f4;
+    padding: 16px 0 58px;
+}
+
+.car__cmt-title {
+    padding: 16px 0;
+}
+
+.car__cmt-container {
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 0 16px;
+}
+
+.car__cmt-infor {
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    padding: 8px 0;
+}
+
+.car__cmt-avatar {
+}
+
+    .car__cmt-avatar img {
+        background-color: red;
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+    }
+
+.car__cmt-name {
+    font-size: 14px;
+}
+
+.car__cmt-star {
+    padding: 16px 0;
+}
+
+    .car__cmt-star i {
+        color: #FFC634;
+    }
+
+.Userbike-content {
+    padding: 32px 0;
+}
+
+.Userbike__header {
+    padding: 24px;
+}
+
+.Userbike__items {
+    background-color: #ebe6e6;
+    display: flex;
+    gap: 16px;
+    border-radius: 15px;
+    padding: 16px 16px;
+    margin: 16px;
+    max-width:98%;
+}
+
+.Userbike__item {
+    padding-right: 16px;
+    width:130px;
+    text-align:center;
+}
+
+.Userbike__img {
+    border-radius: 15px;
+    width: 100px;
+}
+
+.Userbike__sub {
+    margin-bottom: 16px;
+    font-size: 11px;
+    font-weight: 700;
+    color: #f02424;
+    text-transform: uppercase;
+}
+
+.Userbike__main {
+    color: #645757;
+    overflow-x:hidden;
+    font-size:16px;
+    line-height:70px;
+}
+
+.Userbike__btn {
+    border-left: 1px solid #5c5a5a;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.btn__bike {
+    width: 100%;
+    background-color: #5fcf86;
+    padding: 5px 5px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    max-width: 100px;
+    margin: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.btn__bike--create {
+    margin-left: 20px;
+}

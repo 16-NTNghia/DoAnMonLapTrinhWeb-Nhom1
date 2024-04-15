@@ -1,0 +1,50 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.Models.HoaDon
+
+@{
+    ViewData["Title"] = "Display";
+    Layout = "~/Views/Shared/Layoutadmin.cshtml";
+}
+
+<h1>Chi tiết</h1>
+
+<div>
+    <h4>HoaDon</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.YeuCauDatXe.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.YeuCauDatXe.Email)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.YeuCauDatXe.BienSoXe)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.YeuCauDatXe.BienSoXe)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NgayLap)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NgayLap)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TongDonGia)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TongDonGia)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.MaPhuongThucNavigation.TenPhuongThuc)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.MaPhuongThucNavigation.TenPhuongThuc)
+        </dd>
+        
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.MaHoaDon">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

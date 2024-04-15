@@ -1,0 +1,60 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.Models.TaiKhoan
+
+@{
+    ViewData["Title"] = "Display";
+    Layout = "~/Views/Shared/Layoutadmin.cshtml";
+}
+
+<h1>Thông tin tài khoản</h1>
+
+<div>
+    <h4>TaiKhoan</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TenNguoiDung)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenNguoiDung)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Sdt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Sdt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DiaChi)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NgaySinh)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NgaySinh)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Gplx)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Gplx)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Avarta)
+        </dt>
+        <dd class = "col-sm-10">
+            <img style="max-height: 150px" src="@Html.DisplayFor(model => model.Avarta)" alt="Avatar" />
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IdchucVuNavigation.TenChucVu)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdchucVuNavigation.TenChucVu)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -1,0 +1,58 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layoutadmin.cshtml";
+}
+
+<h1>Quản lý hóa đơn</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HoaDon.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoaDon.BienSoXe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoaDon.NgayLap)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoaDon.TongDonGia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoaDon.MaPhuongThucNavigation.TenPhuongThuc)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.HoaDonlist) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BienSoXe)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgayLap)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TongDonGia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaPhuongThucNavigation.TenPhuongThuc)
+            </td>
+            
+            <td>
+                <a asp-action="Display" asp-route-mahoadon="@item.MaHoaDon">Chi tiết</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

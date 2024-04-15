@@ -1,0 +1,67 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel;
+<div class="banner-section">
+    <div class="container">
+        <div class="background">
+            <h1 class="background__title text-center">N1Bikerent - Thuê xe với với yêu cầu của bạn</h1>
+            <div class="background-line"></div>
+            <p class="background__msg">Bạn đưa mức giá - Tôi tìm xe</p>
+        </div>
+        <div class="search">
+
+            <div class="search__option">
+                <div class="option__item">
+                    <i style="font-size: 20px;" class="fa-solid fa-motorcycle"></i>
+                    <p class="option__item-sub">Đặt xe</p>
+                </div>
+            </div>
+            <form class="search__form" asp-action="Index" asp-controller="FindBike" method="get">
+                <div class="search__form-address">
+                    <div class="title">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <p class="">Địa điểm</p>
+                    </div>
+                    <select asp-for="DiaDiem.MaDiaDiem" style="border: none; outline: none; font-size: 20px" class="choose__address-item" asp-items="ViewBag.DiaDiems"></select>
+                </div>
+                <span class="search__line"></span>
+                <div class="search__form-item">
+                    <div class="title">
+                        <i class="fa-regular fa-calendar"></i>
+                        <p class="title__content">Thời gian thuê</p>
+                    </div>
+                    <div class="date js-btn-rent">
+                        <input asp-for="datXe.NgayNhan" class="date-rent"></input>
+                        <span>-</span>
+                        <input asp-for="datXe.NgayTra" class="date-return"></>
+                    </div>
+                </div>
+                <span class="search__line"></span>
+                <div class="btn search-btn">
+                    <button type="submit" class="btn btn-success">Tìm Xe</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* <div class="modal__bikerent js-modal-rent">
+    <!-- Modal content -->
+    <div class="modal__container js-modal-container">
+        <div class="modal__close js-modal-close">
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        <header class="modal__header mt-32">
+            <p class="login__header-title">Thuê xe</p>
+        </header>
+        <div class="modal__body">
+            <label for="" class="modal__body-lable">
+                Ngày thuê
+            </label>
+            <input asp-for="datXe.NgayNhan" id="date__rent" class="modal__input" placeholder="Nhập ngày trả...">
+            <label for="" class="modal__body-lable">
+                Ngày trả
+            </label>
+            <input asp-for="datXe.NgayTra" id="date__return" class="modal__input" placeholder="Nhập ngày trả...">
+        </div>
+    </div>
+</div>
+ *@

@@ -1,0 +1,35 @@
+﻿@model IEnumerable<DoAnMonLapTrinhWeb_Nhom1.Models.PhuongThucThanhToan>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layoutadmin.cshtml";
+}
+
+<h1>Quản lý phương thức thanh toán</h1>
+
+<p>
+    <a class="btn__function" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenPhuongThuc)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenPhuongThuc)
+            </td>
+            <td>
+                <a class="btn__function" asp-action="Edit" asp-route-mapttt="@item.MaPhuongThuc">Edit</a> |
+                    <a class="btn__function" asp-action="Delete" asp-route-mapttt="@item.MaPhuongThuc">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@await Html.PartialAsync("Find")
+<div class="promo-section">
+    <div class="container">
+        <h1>Chương Trình Khuyến Mãi</h1>
+        <h5 class="title">Nhận nhiều ưu đãi hấp dẫn từ N1Bikerent</h5>
+        <div class="slide-container">
+            <div class="slides">
+                <div class="slide">
+                    <img src="https://n1-cstg.mioto.vn/g/2024/02/21/15/IT55BVC8.jpg" alt="Slide 1">
+                </div>
+            </div>
+            <button class="button prev"><span class="triangle-left"></span></button>
+            <button class="button next"><span class="triangle-right"></span></button>
+        </div>
+    </div>
+</div>
+
+<div class="car__section">
+    <div class="container car">
+        <h1 class="car__section-title">Xe Dành Cho Bạn</h1>
+        <div class="row">
+            @await Html.PartialAsync("BikeRent")
+        </div>
+    </div>
+</div>
+
+

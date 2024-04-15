@@ -1,0 +1,50 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.Models.KhuyenMai
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/Layoutadmin.cshtml";
+}
+
+<h1>Cập nhật khuyến mãi</h1>
+
+<h4>KhuyenMai</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Update" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="MaiKhuyenMai" />
+            <div class="form-group">
+                <label asp-for="TenKhuyenMai" class="control-label"></label>
+                <input asp-for="TenKhuyenMai" class="form-control" />
+                <span asp-validation-for="TenKhuyenMai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoiDungKhuyenMai" class="control-label"></label>
+                <input asp-for="NoiDungKhuyenMai" class="form-control" />
+                <span asp-validation-for="NoiDungKhuyenMai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NgayKhuyenMai" class="control-label"></label>
+                <input asp-for="NgayKhuyenMai" class="form-control" />
+                <span asp-validation-for="NgayKhuyenMai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhanTramKhhuyenMai" class="control-label"></label>
+                <input asp-for="PhanTramKhhuyenMai" class="form-control" />
+                <span asp-validation-for="PhanTramKhhuyenMai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,302 @@
+﻿@using System.Security.Claims
+@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel;
+
+@{
+	if (Model.Register != null)
+	{
+		Model.Register.NgaySinh = DateTime.Now;
+	}
+	// Đặt giá trị mặc định cho trường ngày là ngày hiện tại
+	var _context = new QuanLyThueXeMayTuLaiContext();
+
+	// Lấy thông tin tài khoản từ cơ sở dữ liệu
+
+}
+
+<ul class="header-nav-container">
+
+	@if (User.Identity.IsAuthenticated)
+	{
+		string username = User.Identity.Name;
+		string permission = User.FindFirst(ClaimTypes.Role)?.Value;
+		var user = _context.TaiKhoans.FirstOrDefault(u => u.Email == username);
+		// Kiểm tra xem tài khoản có tồn tại không
+		if (user != null)
+		{
+			// Nếu tài khoản có avatar, lưu URL vào TempData
+			if (!string.IsNullOrEmpty(user.Avarta))
+			{
+				TempData["Avatar"] = user.Avarta;
+			}
+			else
+			{
+				// Nếu không có avatar, sử dụng hình ảnh mặc định và lưu URL vào TempData
+				TempData["Avatar"] = "/Images/avatar/avatardf.png";
+			}
+		}
+		else
+		{
+			// Nếu không tìm thấy tài khoản, sử dụng hình ảnh mặc định và lưu URL vào TempData
+			TempData["Avatar"] = "/Images/avatar/avatardf.png";
+		}
+		if (permission == "1")
+		{
+			<a href="~/Manager/Index" class="nav-admin nav__a">
+				<i class="fa-solid fa-gear"></i>
+			</a>
+		}
+		else if (permission == "3")
+		{
+			<a href="~/Manager/Index" class="nav-employee nav__a">
+				<i class="fa-solid fa-briefcase"></i>
+			</a>
+		}
+		else if (permission == "2")
+		{
+			<li class="header-nav-container-item"><a class="nav__a" href="~/CustomerBike/Index">Trở thành chủ xe</a><span style="border-style: groove;" class="header-nav-container-item header-line"></span></li>
+			<li class="header-nav-container-item header-nav-container-item--hasNotify">
+				<i class="fa-solid fa-bell"></i>
+				<div class="notify-order">
+					<ul class="order__check">
+						@if (Model.datXeList.Count == 0)
+						{
+							<li class="order__check-item">
+								<a class="order__check-link">
+									<div class="order__check-content">
+										<p class="content__bsx">Không có yêu cầu đặt xe nào</p>
+									</div>
+								</a>
+							</li>
+						}
+						else
+						{
+							@foreach (var item in Model.datXeList)
+							{
+								<li class="order__check-item">
+									<a asp-action="CheckOrder" asp-controller="CustomerBike" asp-route-biensoxe="@item.BienSoXe" asp-route-email="@item.Email" class="order__check-link">
+										<img src="@item.BienSoXeNavigation.HinhAnh1" class="order__check-img" />
+										<div class="order__check-content">
+											<p class="content__bsx">@item.BienSoXe<span class="content__notify">Đang có yêu cầu đặt </span><span>bởi @item.Email</span></p>
+										</div>
+									</a>
+								</li>
+							}
+						}
+					</ul>
+				</div>
+			</li>
+		}
+		<li class="header__infor">
+			<p class="header__avatar">
+				<img src="@TempData["Avatar"]" alt="Avatar">
+			</p>
+			<a cl asp-action="Update" asp-controller="UserInfor" asp-route-email="@username" class="header__name nav__a"> @username <i class="fa-solid fa-sort-down"></i></a>
+		</li>
+		<li id="mobile-menu" class="mobile-menu-btn">
+			<i class="menu-icon fa-solid fa-bars"></i>
+		</li>
+		<li>
+			<a href="/Home/Logout" class="nav-logout nav__a">
+				<i class="fa-solid fa-right-from-bracket"></i>
+			</a>
+		</li>
+	}
+	else
+	{
+		<li class="btn sginup js-btn-signup">
+			Đăng ký
+		</li>
+		<li class="btn login js-btn-login">
+			Đăng nhập
+		</li>
+	}
+</ul>
+
+<div class="modal__login js-modal-login">
+	<div class="modal__container js-modal-container">
+		<div class="modal__close js-modal-close">
+			<i class="fa-solid fa-xmark"></i>
+		</div>
+		<header class="modal__header mt-32">
+			<p class="login__header-title">Đăng Nhập</p>
+		</header>
+		<div class="modal__body">
+			@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+			{
+				<div class="alert alert-danger" role="alert">
+					@ViewBag.ErrorMessage
+				</div>
+			}
+			<form class="form form-horizontal" asp-action="Login" asp-controller="Home" method="POST">
+				<div class="form-group">
+					<label asp-for="Register.Email" class="col-md-3 control-label modal__lable"></label>
+					<div class="col-md-9">
+						<input class="form-control modal__input" asp-for="Register.Email" placeholder="Nhập tên Email" autofocus required />
+						<span asp-validation-for="Register.Email" class="textdanger"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="Register.MatKhau" class="col-md-3 control-label modal__lable"></label>
+					<div class="col-md-9">
+						<input type="password" class="form-control modal__input" asp-for="Register.MatKhau" id="password" placeholder="Nhập mật khẩu" required />
+						<span asp-validation-for="Register.MatKhau" class="textdanger"></span>
+					</div>
+				</div>
+				<a href="#" class="password__forgot">Quên mật khẩu?</a>
+				<button type="submit" class="btn modal__btn">Đăng nhập</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="modal__signup js-modal-signup">
+	<div class="modal__container js-modal-container">
+		<div class="modal__close js-modal-close">
+			<i class="fa-solid fa-xmark"></i>
+		</div>
+		<header class="modal__header mt-32">
+			<p class="signup__header-title">Đăng ký</p>
+		</header>
+		<div class="modal__body">
+			@if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+			{
+				<div class="alert alert-danger" role="alert">
+					@ViewBag.ErrorMessage
+				</div>
+			}
+			<form class="form form-horizontal" asp-action="Register" asp-controller="Home" method="POST">
+				<div class="form-group">
+					<label asp-for="Register.Email" class="col-md-3 control-label modal__label"></label>
+					<div class="col-md-9">
+						<input class="form-control modal__input" asp-for="Register.Email"
+							   placeholder="Nhập Email" autofocus required />
+						<span asp-validation-for="Register.Email" class="textdanger"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="Register.TenNguoiDung" class="col-md-3 control-label modal__lable"></label>
+					<div class="col-md-9">
+						<input class="form-control modal__input" asp-for="Register.TenNguoiDung"
+							   placeholder="Nhập họ và tên" required />
+						<span asp-validation-for="Register.TenNguoiDung" class="textdanger"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="Register.MatKhau" class="col-md-3 control-label modal__lable"></label>
+					<div class="col-md-9">
+						<input type="password" class="form-control modal__input" asp-for="Register.MatKhau" id="password" placeholder="Nhập mật khẩu" required
+							   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+							   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số, một chữ thường và một chữ hoa." />
+						<span asp-validation-for="Register.MatKhau" class="textdanger"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">Nhập lại mật khẩu:</label>
+					<div class="col-md-9">
+						<input type="password" class="form-control modal__input" id="confirmPassword"
+							   placeholder="Nhập lại mật khẩu" required
+							   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+							   title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm ít nhất một chữ số, một chữ thường và một chữ hoa."
+							   oninput="checkPasswordMatch(this);" />
+						<div id="passwordMatchMessage"></div>
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="Register.Sdt" class="col-md-3 control-label modal__lable"></label>
+					<div class="col-md-9">
+						<input class="form-control modal__input" asp-for="Register.Sdt"
+							   placeholder="Nhập địa chỉ" />
+						<span asp-validation-for="Register.Sdt" class="textdanger"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="Register.DiaChi" class="col-md-3 control-label modal__lable"></label>
+					<div class="col-md-9">
+						<input class="form-control modal__input" asp-for="Register.DiaChi"
+							   placeholder="Nhập địa chỉ" />
+						<span asp-validation-for="Register.DiaChi" class="textdanger"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="Register.NgaySinh" class="col-md-3 control-label modal__lable"></label>
+					<div class="col-md-9">
+						<input class="form-control modal__input" asp-for="Register.NgaySinh" required />
+						<span asp-validation-for="Register.NgaySinh" class="textdanger"></span>
+					</div>
+				</div>
+				<div class="form-group">
+					<label asp-for="Register.Gplx" class="col-md-3 control-label modal__lable"></label>
+					<div class="col-md-9">
+						<input class="form-control modal__input" asp-for="Register.Gplx"
+							   placeholder="Nhập số giấy phép lái xe" required />
+						<span asp-validation-for="Register.Gplx" class="textdanger"></span>
+					</div>
+				</div>
+				<button type="submit" class="btn modal__btn">Đăng ký</button>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+
+	const btnLogin = document.querySelector('.js-btn-login');
+	const btnSignup = document.querySelector('.js-btn-signup');
+
+	const modalLogin = document.querySelector('.js-modal-login');
+	const modalSignup = document.querySelector('.js-modal-signup');
+	function showLogin() {
+		modalLogin.classList.add('open');
+	}
+
+	function showSignup() {
+		modalSignup.classList.add('open');
+	}
+
+	function closeLogin() {
+		modalLogin.classList.remove('open');
+	}
+
+	function closeSignup() {
+		modalSignup.classList.remove('open');
+	}
+
+	btnLogin.addEventListener('click', showLogin);
+	btnSignup.addEventListener('click', showSignup);
+
+	const btnCloses = document.querySelectorAll('.js-modal-close');
+
+	btnCloses.forEach(btnClose => {
+		btnClose.addEventListener('click', () => {
+			if (btnClose.closest('.js-modal-login')) {
+				closeLogin();
+			} else if (btnClose.closest('.js-modal-signup')) {
+				closeSignup();
+			}
+		});
+	});
+
+	// Ngăn sự kiện nổi bọt khi nhấp vào modal container
+	const modalContainers = document.querySelectorAll('.js-modal-container');
+
+	modalContainers.forEach(function (modalContainer) {
+		modalContainer.addEventListener('click', function (event) {
+			event.stopPropagation(); // Ngừng sự kiện nổi bọt để ngăn đóng modal
+		});
+	});
+
+	modalLogin.addEventListener('click', closeLogin)
+	modalSignup.addEventListener('click', closeSignup)
+</script>
+@section scripts {
+	<script>
+		function checkPasswordMatch(input) {
+			var passwordInput = document.getElementById('password');
+			var confirmPasswordInput = input;
+			if (passwordInput.value !== confirmPasswordInput.value) {
+				confirmPasswordInput.setCustomValidity('Mật khẩu không khớp');
+			} else {
+				confirmPasswordInput.setCustomValidity('');
+			}
+		}
+	</script>
+}

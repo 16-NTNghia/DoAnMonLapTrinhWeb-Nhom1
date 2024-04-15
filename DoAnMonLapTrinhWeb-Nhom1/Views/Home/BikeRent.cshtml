@@ -1,0 +1,27 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
+@using X.PagedList.Mvc.Core
+@foreach (var item in Model.XePageList)
+{
+	<a asp-route-biensoxe="@item.BienSoXe" asp-action="Index" asp-controller="RentBike" class="col-item car__items">
+		<div class="car__item">
+			<img src="@item.HinhAnh1" alt="Hình ảnh xe" class="car__item-img">
+			<div class="car__infor">
+				<p class="car__catelogy">@Html.DisplayFor(modelItem => item.MaLoaiNavigation.TenLoai)</p>
+				<h2 class="car__name">@Html.DisplayFor(modelItem => item.TenXe)</h2>
+				<span class=""></span>
+				<div class="car__address">
+					<i class="fa-solid fa-location-dot car__item-iconaddress"></i>
+					<span class="car__address-inffor">@Html.DisplayFor(modelItem => item.MaDiaDiemNavigation.TenDiaDiem)</span>
+				</div>
+			</div>
+		</div>
+		<div class="car__item-description">
+			<i class="fa-solid fa-star car__item-iconstar"></i>
+			<span class="car__item-description-num">5.0</span>
+			<i class="fa-solid fa-circle car__item-description-dot"></i>
+			<i class="fa-solid fa-suitcase-rolling car__item-icontrip"></i>
+			<span class="car__item-infor">5 chuyến</span>
+		</div>
+	</a>
+}
+@Html.PagedListPager(Model.XePageList, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)

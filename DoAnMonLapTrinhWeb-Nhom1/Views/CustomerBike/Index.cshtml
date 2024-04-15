@@ -1,0 +1,60 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="Userbike-seticon">
+    <div class="container">
+        <div class="Userbike-content">
+            <h1 class="Userbike__header">Xe của bạn</h1>
+            <a class="btn__bike btn__bike--create" asp-action="Add">Thêm xe</a>
+            @foreach (var item in Model.XeList)
+            {
+                <div class="Userbike__items">
+                    <div class="Userbike__item">
+                        <p class="Userbike__sub">Hình ảnh</p>
+                        <img class="Userbike__img" src="@Html.DisplayFor(modelItem=> item.HinhAnh1)" alt="Hình ảnh">
+                    </div>
+                    <div class="Userbike__item">
+                        <p class="Userbike__sub">Biển số xe</p>
+                        <div class="Userbike__main">@Html.DisplayFor(modelItem => item.BienSoXe)</div>
+                    </div>
+                    <div class="Userbike__item">
+                        <p class="Userbike__sub">Tên xe</p>
+                        <div class="Userbike__main">@Html.DisplayFor(modelItem => item.TenXe)</div>
+                    </div>
+                    <div class="Userbike__item">
+                        <p class="Userbike__sub">Năm sản xuất</p>
+                        <div class="Userbike__main">@Html.DisplayFor(modelItem => item.NamSanXuat)</div>
+                    </div>
+                    <div class="Userbike__item">
+                        <p class="Userbike__sub">Giá thuê</p>
+                        <div class="Userbike__main">@Html.DisplayFor(modelItem => item.GiaThue)</div>
+                    </div>
+                    <div class="Userbike__item">
+                        <p class="Userbike__sub">Nhiên liệu</p>
+                        <div class="Userbike__main">@Html.DisplayFor(modelItem => item.NhienLieu)</div>
+                    </div>
+                    <div class="Userbike__item">
+                        <p class="Userbike__sub">Phân khối</p>
+                        <div class="Userbike__main">@Html.DisplayFor(modelItem => item.MaLucPhanKhoi)</div>
+                    </div>
+                    <div class="Userbike__item">
+                        <p class="Userbike__sub">Mô tả</p>
+                        <div class="Userbike__main">@Html.DisplayFor(modelItem => item.MoTa)</div>
+                    </div>
+                    <div class="Userbike__item">
+                        <p class="Userbike__sub">Trạng thái</p>
+                        <div class="Userbike__main">@Html.DisplayFor(modelItem => item.TrangThai)</div>
+                    </div>
+                    <div class="Userbike__btn">
+                        <a asp-action="Update" asp-route-biensoxe="@item.BienSoXe" class="btn__bike">Cập nhật</a>
+                        <a asp-action="Display" asp-route-biensoxe="@item.BienSoXe" class="btn__bike">Xem chi tiết</a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

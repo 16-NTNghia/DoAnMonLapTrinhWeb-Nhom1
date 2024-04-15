@@ -1,0 +1,181 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="car__body">
+    <div class="car__header">
+        <div class="container">
+            <ul class="car__infor-navbar">
+                <li class="car__infor-items"><a href="#dacdiem" class="car__infor-item">Đặc điểm</a></li>
+                <li class="car__infor-items"><a href="#danhgia" class="car__infor-item">Đánh giá</a></li>
+            </ul>
+        </div>
+    </div>
+    <form asp-route-biensoxe ="@Model.Xe.BienSoXe" asp-action="Order" asp-controller="RentBike" method="post">
+        <div class="car__body-infor">
+            <div class="container">
+                <div class="car__img">
+                    <div class="img__main">
+                        <img src="@Model.Xe.HinhAnh1" alt="Hình 1">
+                    </div>
+                    <div class="img__sub">
+                        <div class="img__sub-item">
+                            <img src="@Model.Xe.HinhAnh2" alt="Hình 2">
+                        </div>
+                        <div class="img__sub-item">
+                            <img src="@Model.Xe.HinhAnh3" alt="Hình 3">
+                        </div>
+                        <div class="img__sub-item">
+                            <img src="@Model.Xe.HinhAnh4" alt="Hình 4">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="dacdiem" class="car__details">
+            <div class="container">
+                <div class="car__detail-container">
+                    <div class="car__detail">
+                        <div class="car__detail-infor">
+                            <p class="car__detail-name">@Model.Xe.TenXe</p>
+                            <p class="car__detail-address">@Model.Xe.MaDiaDiemNavigation.TenDiaDiem</p>
+                            <p class="car__detail-category">@Model.Xe.MaLoaiNavigation.TenLoai</p>
+                        </div>
+
+                        <h2 class="car__detail-header">Đặc điểm</h2>
+                        <div class="car__detail-content">
+                            <div class="car__detail-content-item">
+                                <div class="car__detail-content-icon">
+                                    <i class="fa-solid fa-list"></i>
+                                </div>
+                                <div class="car__detail-content-title">
+                                    <p class="title-sub">Phân khối</p>
+                                    <p class="title-main">@Model.Xe.MaLucPhanKhoi</p>
+                                </div>
+                            </div>
+                            <div class="car__detail-content-item">
+                                <div class="car__detail-content-icon">
+                                    <i class="fa-solid fa-motorcycle"></i>
+                                </div>
+                                <div class="car__detail-content-title">
+                                    <p class="title-sub">Loại xe</p>
+                                    <p class="title-main">@Model.Xe.MaLoaiNavigation.TenLoai</p>
+                                </div>
+                            </div>
+                            <div class="car__detail-content-item">
+                                <div class="car__detail-content-icon">
+                                    <i class="fa-solid fa-gas-pump"></i>
+                                </div>
+                                <div class="car__detail-content-title">
+                                    <p class="title-sub">Nhiên liệu</p>
+                                    <p class="title-main">@Model.Xe.NhienLieu</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="car__detail-des">
+                            <h2 class="car__detail-des-title">Mô tả</h2>
+                            <p class="car__detail-des-cmt">
+                                @Model.Xe.MoTa
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="car__detail-sidebar">
+                        <div class="car__sidebar-date">
+                            <div class="car__sidebar-rent">
+                                <p>Nhận xe</p>
+                                <input asp-for="@Model.datXe.NgayNhan" id="sidebar__rent" class="sidebar__input">
+                            </div>
+                            <div class="line"></div>
+                            <div class="car__sidebar-rent">
+                                <p>Trả xe</p>
+                                <input asp-for="@Model.datXe.NgayTra" id="sidebar__return" class="sidebar__input">
+                            </div>
+                        </div>
+                        <div class="car__sidebar-address">
+                            <h4 class="sidebar__address-sub">Địa điểm giao xe</h4>
+                            <p class="sidebar__address-main">@Model.Xe.MaDiaDiemNavigation.TenDiaDiem</p>
+                        </div>
+                        <div class="car__sidebar-price">
+                            <h1>@Model.Xe.GiaThue/ngày</h1>
+                        </div>
+                        <div class="car__sidebar-prices">
+                            <div class="price__item">
+                                <div class="price__sub">
+                                    <p>Giá thuê</p>
+                                </div>
+                                <div class="price__cost">
+                                    <span id="rentPrice">@Model.Xe.GiaThue</span>
+                                    <span>/ngày</span>
+                                </div>
+                            </div>
+                            <div class="price__item">
+                                <div class="price__sub">
+                                    <p>Tổng cộng</p>
+                                </div>
+                                <div class="price__cost">
+
+                                    <span id="totalDays">@Model.Xe.GiaThue<span>đ</span> x  @Model.TongNgayThue() ngày</span>
+                                </div>
+                            </div>
+                            <div class="price__item total">
+                                <div class="price__sub">
+                                    <p>Thành tiền</p>
+                                </div>
+                                <div class="price__cost">
+                                    <span id="totalCost">@Model.TinhTong()</span><span>đ</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn__rent">Chọn thuê</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form> 
+    <div id="danhgia" class="car__cmt">
+        <div class="container">
+            <h2 class="car__cmt-title">Đánh giá</h2>
+            <div class="car__cmt-container">
+                <div class="car__cmt-infor">
+                    <div class="car__cmt-avatar">
+                        <img src="" alt="">
+                    </div>
+                    <div class="car__cmt-name">HuynhMinhCuong</div>
+                </div>
+                <div class="car__cmt-star">
+                    <span><i class="fa-solid fa-star"></i> 5 sao</span>
+                </div>
+                <div class="car__cmt-des">
+                    <p class="car__cmt-des-content">
+                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#sidebar__rent, #sidebar__return").change(function () {
+            updateTotalCost();
+        });
+    });
+
+    function updateTotalCost() {
+        var rentPricePerDay = parseFloat($("#rentPrice").text());
+        var startDate = new Date($("#sidebar__rent").val());
+        var endDate = new Date($("#sidebar__return").val());
+        var totalDays = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+        $("#totalDays").text(rentPricePerDay + " x " + totalDays + " ngày");
+
+        var totalCost = rentPricePerDay * totalDays;
+        $("#totalCost").text(totalCost);
+    }
+</script>

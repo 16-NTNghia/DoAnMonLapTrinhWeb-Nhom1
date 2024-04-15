@@ -1,0 +1,76 @@
+﻿@using System.Security.Claims
+@model IEnumerable<DoAnMonLapTrinhWeb_Nhom1.Models.Xe>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layoutadmin.cshtml";
+}
+
+<h1>Index</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenXe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NamSanXuat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GiaThue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NhienLieu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaLucPhanKhoi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MoTa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hide)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenXe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NamSanXuat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GiaThue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NhienLieu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MaLucPhanKhoi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MoTa)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hide)
+                </td>
+                <td>
+
+                    <a class="btn__function" asp-action="AcceptBike" asp-route-biensoxe="@item.BienSoXe">Chấp nhận</a> |
+                    <a class="btn__function" asp-action="Display" asp-route-biensoxe="@item.BienSoXe">Details</a> 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,153 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+
+body {
+    font-family: "Bungee Spice", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.hidden{
+    display: none !important;
+}
+#user__wrapper{
+    display: flex;
+    overflow-x: hidden;
+}
+
+.navbar-section{
+    display: block;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    max-width: 250px;
+    background-color: #5fcf86;
+    padding: 0;
+    transition: margin .25s ease-out;
+}
+
+.navbar__header{
+    padding: 16px 24px 24px;
+    border-bottom:5px solid #fff  ;
+}
+
+.navbar__list{
+    list-style: none;
+    padding: 0;
+}
+
+.navbar__item{
+    padding: 8px 24px;
+    border-bottom: 1px solid #ccc;
+    line-height: 1.6;
+}
+
+.navbar__item:hover{
+    background-color: rgba(0,0,0,.2);
+}
+.navbar__link{
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 600;
+    text-decoration: none;
+    color: #212B36;
+}
+
+.navbar__back{
+    margin-left: 24px;
+    margin-top: 50px;
+}
+
+.navbar__back:hover a {
+    color:#fff;
+}
+
+.navbar__icon{
+    color: #095474;
+    width:30px;
+    font-size:20px;
+}
+
+
+.content{
+    margin-left: 250px;
+    min-width: 100vh;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.header{
+    
+}
+
+.header__content{
+    padding: 10px 24px;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,20,.08), 0 1px 2px rgba(0,0,20,.08);
+    height: 78px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.header__login{
+    display:flex;
+    gap:24px;
+    align-items:center;
+}
+
+.header__name{
+    color:#000;
+}
+
+.avatar {
+    float: right;
+}
+
+.avatar img{
+    background-color: #5fcf86;
+    border-radius: 100%;
+    width: 50px;
+    height: 50px;
+}
+
+
+.header__menu{
+    color: #000;
+    font-size: 20px;
+    padding: 24px 24px;
+}
+
+.header__menu:hover{
+    background-color: rgba(0,0,0,.2);
+}
+
+.main{
+    background-color: #f1F5F9;
+    min-height: 100vh;
+}
+
+.main__content {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding-top: 32px;
+}
+
+.btn__function {
+    text-decoration: none;
+    padding: 4px 6px;
+    background-color: #28a5f1;
+    color: #fff;
+    border-radius: 4px;
+}
+
+.btn__function:hover{
+    opacity:0.6;
+}
+
+

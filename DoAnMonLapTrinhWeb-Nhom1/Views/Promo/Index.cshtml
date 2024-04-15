@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DoAnMonLapTrinhWeb_Nhom1.Models.KhuyenMai>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layoutadmin.cshtml";
+}
+
+<h1>Quản lý khuyến mãi</h1>
+
+<p>
+    <a class="btn__function" class="btn__function" asp-action="Add">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenKhuyenMai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NoiDungKhuyenMai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayKhuyenMai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhanTramKhhuyenMai)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenKhuyenMai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoiDungKhuyenMai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayKhuyenMai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhanTramKhhuyenMai)
+                </td>
+                <td>
+                    <a class="btn__function" asp-action="Update" asp-route-makhuyenmai="@item.MaiKhuyenMai">Edit</a> |
+                    <a class="btn__function" asp-action="Display" asp-route-makhuyenmai="@item.MaiKhuyenMai">Details</a> |
+                    <a class="btn__function" asp-action="Delete" asp-route-makhuyenmai="@item.MaiKhuyenMai">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

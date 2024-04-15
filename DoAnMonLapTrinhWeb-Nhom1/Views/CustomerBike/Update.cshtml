@@ -1,0 +1,110 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <h1>Chỉnh sửa xe</h1>
+</div>
+
+<div class="content">
+    <div class="modal__container js-modal-container">
+        <div style="padding:32px" class="modal__body-infor">
+            <form asp-action="Update" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Xe.BienSoXe" />
+                <div class="form-group">
+                    <label  class="control-label modal__lable">Địa điểm</label>
+                    <select asp-for="Xe.MaDiaDiem" class="form-control modal__input" asp-items="ViewBag.MaDiaDiem"></select>
+                    <span asp-validation-for="Xe.MaDiaDiem" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label modal__lable">Hảng xe</label>
+                    <select asp-for="Xe.MaHangXe" class="form-control modal__input" asp-items="ViewBag.MaHangXe"></select>
+                    <span asp-validation-for="Xe.MaHangXe" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label modal__lable">Loại xe</label>
+                    <select asp-for="Xe.MaLoai" class="form-control modal__input" asp-items="ViewBag.MaLoai"></select>
+                    <span asp-validation-for="Xe.MaLoai" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label modal__lable">Tên xe</label>
+                    <input asp-for="Xe.TenXe" class="form-control modal__input" />
+                    <span asp-validation-for="Xe.TenXe" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label modal__lable">Năm sản xuất</label>
+                    <input asp-for="Xe.NamSanXuat" class="form-control modal__input" />
+                    <span asp-validation-for="Xe.NamSanXuat" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label modal__lable">Giá thuê</label>
+                    <input asp-for="Xe.GiaThue" class="form-control modal__input" />
+                    <span asp-validation-for="Xe.GiaThue" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label modal__lable">Nhiên liệu</label>
+                    <input asp-for="Xe.NhienLieu" class="form-control modal__input" />
+                    <span asp-validation-for="Xe.NhienLieu" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label modal__lable">Phân khối</label>
+                    <input asp-for="Xe.MaLucPhanKhoi" class="form-control modal__input" />
+                    <span asp-validation-for="Xe.MaLucPhanKhoi" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label modal__lable">Ảnh xe chính</label>
+                    <div class="col-md-9">
+                        <img class="modal__input-img" src="@Html.DisplayFor(model => model.Xe.HinhAnh1)" alt="Hình ảnh xe" />
+                        <input type="file" name="HinhAnh1" class="form-control " />
+                        <span asp-validation-for="Xe.HinhAnh1" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label modal__lable">Mô tả</label>
+                    <input asp-for="Xe.MoTa" class="form-control modal__input" />
+                    <span asp-validation-for="Xe.MoTa" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Lưu" class="btn btn-primary modal__btn" />
+                </div>
+            </form>
+        </div>
+        <div>
+            <a style="margin-top:16px" class="btn__function" asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+<script>
+    // Đợi cho tài liệu HTML được tải hoàn toàn trước khi thực thi mã JavaScript
+    document.addEventListener("DOMContentLoaded", function () {
+        // Chọn input file
+        var input = document.querySelector('input[type="file"]');
+
+        // Lắng nghe sự kiện khi người dùng chọn file
+        input.addEventListener('change', function () {
+            // Kiểm tra xem người dùng đã chọn file nào chưa
+            if (input.files && input.files[0]) {
+                // Tạo một đối tượng FileReader mới
+                var reader = new FileReader();
+
+                // Lắng nghe sự kiện khi FileReader đã đọc file thành công
+                reader.onload = function (e) {
+                    // Hiển thị hình ảnh trong modal__input-img
+                    var imgElement = document.querySelector('.modal__input-img');
+                    imgElement.src = e.target.result;
+                };
+
+                // Đọc file hình ảnh dưới dạng URL
+                reader.readAsDataURL(input.files[0]);
+            }
+        });
+    });
+
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

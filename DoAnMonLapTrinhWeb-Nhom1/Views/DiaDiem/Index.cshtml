@@ -1,0 +1,36 @@
+﻿@model IEnumerable<DoAnMonLapTrinhWeb_Nhom1.Models.DiaDiem>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layoutadmin.cshtml";
+}
+
+<h1>Quản lý địa điểm</h1>
+
+<p>
+    <a class="btn__function" asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenDiaDiem)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenDiaDiem)
+                </td>
+                <td>
+                    <a class="btn__function" asp-action="Edit" asp-route-id="@item.MaDiaDiem">Edit</a> |
+                    <a class="btn__function" asp-action="Delete" asp-route-id="@item.MaDiaDiem">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

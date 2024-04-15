@@ -1,0 +1,75 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel;
+
+@{
+    ViewData["Title"] = "CheckOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CheckOrder</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            @*  @if (TempData.ContainsKey("SuccessMessage"))
+            {
+            <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+            </div>
+            }
+            @if (TempData.ContainsKey("ErrorMessage"))
+            {
+            <div class="alert alert-danger" role="alert">
+            @TempData["ErrorMessage"]
+            </div>
+            } *@
+            <th>
+                @Html.DisplayNameFor(model => model.datXe.BienSoXe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datXe.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datXe.NgayNhan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datXe.NgayTra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datXe.SoNgayThue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.datXe.TrangThaiChapNhan)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                @Html.DisplayFor(model => model.datXe.BienSoXe)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.datXe.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.datXe.NgayNhan)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.datXe.NgayTra)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.datXe.SoNgayThue)
+            </td>
+            <td>
+                @Html.DisplayFor(model => model.datXe.TrangThaiChapNhan)
+            </td>
+            <td>
+                <a class="btn__function" asp-action="Accept" asp-route-biensoxe="@Model.datXe.BienSoXe" asp-route-email="@Model.datXe.Email">Accept</a> |
+                <a class="btn__function" asp-action="Deny" asp-route-biensoxe="@Model.datXe.BienSoXe" asp-route-email="@Model.datXe.Email">Deny</a>
+            </td>
+        </tr>
+    </tbody>
+    <a asp-action="Index">Back to List</a>
+</table>
+
+

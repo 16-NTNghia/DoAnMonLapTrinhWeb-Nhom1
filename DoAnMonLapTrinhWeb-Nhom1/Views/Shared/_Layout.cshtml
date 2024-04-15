@@ -1,0 +1,281 @@
+﻿
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/responsive.css">
+    <link rel="stylesheet" href="~/css/car-infor.css">
+    <link rel="stylesheet" href="~/font/themify-icons-font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://kit.fontawesome.com/4d0a41491c.js" crossorigin="anonymous"></script>
+    <title>N1Bikerent</title>
+</head>
+<body>
+    <div id="main">
+        <div id="header">
+            <div class="header-top__color"></div>
+            <div class="container">
+                <div class="header-top text-center">
+                    <ul class="header-top-content">
+                        <li class="header-phone text-while">
+                            <a class="phone__num" href="tel:+8432650****"><i class="phone__icon fa-solid fa-phone"></i>+8432650****</a>
+                        </li>
+                        <li class="header-language">
+                            <div class="language-choose">
+                                <img class="language__img" src="~/Images/logo/VietNam.png" alt="LogoVietNam">
+                                <span>Tiếng Việt</span>
+                                <span><i class="fa-solid fa-sort-down"></i></span>
+                            </div>
+
+                            <div class="language__list">
+                                <p class="language__items" onclick="translateLanguage()" >
+                                    <img class="language__img" src="~/Images/logo/VietNam.png" alt="LogoVietNam">
+                                    <span>Tiếng Việt</span>
+                                <p class="language__items" onclick="translateLanguage()">
+                                    <img class="language__img" src="~/Images/img/Flag_of_the_United_Kingdom_(1-2).svg" alt="LogoVietNam">
+                                    <span>Tiếng Anh</span>
+                                </p>
+                                <p class="language__items" >
+                                    <img class="language__img" src="~/Images/img/TQ.png" alt="LogoVietNam">
+                                    <span>Tiếng Trung</span>
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="header-nav">
+                    <div class="logo">
+                        <a href="~/Home/Index" class="full-logo">
+                            <img src="~/Images/logo/new-logo.png" alt="Logo">
+                        </a>
+                    </div>
+                    @await Html.PartialAsync("Menu")
+                </div>
+            </div>
+        </div>
+        <div style="padding:32px 0" class="container">
+            @RenderBody()
+        </div>
+       
+        <div id="footer">
+            <div class="container">
+                <div class="footer__about">
+                    <div class="footer__infor">
+                        <a class="footer__logo" href=""><img src="assects/Images/logo/new-logo.png" alt=""></a>
+                        <div class="footer__contact">
+                            <a class="footer__phone" href="">
+                                <p class="main">+8432650***</p>
+                                <p>Thời gian hổ trợ: 7AM - 10PM</p>
+                            </a>
+                            <a href="" class="footer__mail">
+                                <p class="main">n1bkierent@gmail.com</p>
+                                <p>Gửi mail cho</p>
+                            </a>
+                        </div>
+                        <div class="footer__social">
+                            <a href=""><i class="fa-brands fa-facebook"></i></a>
+                            <a href=""><i class="fa-brands fa-tiktok"></i></a>
+                        </div>
+                    </div>
+                    <div class="footer__part col-third">
+                        <div class="item">
+                            <p class="item__name">
+                                Chính Sách
+                            </p>
+                            <div class="item__sub">
+                                <a href="">Chính sách và quy định</a>
+                                <a href="">Quy chế hoạt động</a>
+                                <a href="">Bảo mật thông tin</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <p class="item__name">
+                                Tìm Hiểu Thêm
+                            </p>
+                            <div class="item__sub">
+                                <a href="">Hướng dẫn thuê xe</a>
+                                <a href="">Hướng thanh toán</a>
+                                <a href="">Về N1bikerent</a>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <p class="item__name">
+                                Đối Tác
+                            </p>
+                            <div class="item__sub">
+                                <a href="">Đăng ký làm chủ xe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+    <script>
+        $(document).ready(function () {
+            // Initialize datepicker
+            $("#date__rent, #date__return").datepicker({
+                dateFormat: 'dd/mm/yy'
+            });
+        });
+    </script>
+    <script>
+        //Chuyển ngôn ngữ
+        let languageItems = document.querySelectorAll('.language__items');
+        // Lặp qua từng mục ngôn ngữ và gắn sự kiện click
+        languageItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                // Lấy hình ảnh và tên ngôn ngữ từ mục ngôn ngữ được chọn
+                let img = item.querySelector('.language__img').src;
+                let language = item.querySelector('span').innerText;
+
+                // Cập nhật hình ảnh và tên ngôn ngữ trong phần language-choose
+                let languageChoose = document.querySelector('.language-choose');
+                languageChoose.querySelector('.language__img').src = img;
+                languageChoose.querySelector('span').innerText = language;
+            });
+        });
+    </script>
+    <script>
+
+        const btnLogin = document.querySelector('.js-btn-login');
+        const btnSignup = document.querySelector('.js-btn-signup');
+
+        const modalLogin = document.querySelector('.js-modal-login');
+        const modalSignup = document.querySelector('.js-modal-signup');
+        function showLogin() {
+            modalLogin.classList.add('open');
+        }
+
+        function showSignup() {
+            modalSignup.classList.add('open');
+        }
+
+        function closeLogin() {
+            modalLogin.classList.remove('open');
+        }
+
+        function closeSignup() {
+            modalSignup.classList.remove('open');
+        }
+
+        btnLogin.addEventListener('click', showLogin);
+        btnSignup.addEventListener('click', showSignup);
+
+        const btnCloses = document.querySelectorAll('.js-modal-close');
+
+        btnCloses.forEach(btnClose => {
+            btnClose.addEventListener('click', () => {
+                if (btnClose.closest('.js-modal-login')) {
+                    closeLogin();
+                } else if (btnClose.closest('.js-modal-signup')) {
+                    closeSignup();
+                }
+            });
+        });
+
+        // Ngăn sự kiện nổi bọt khi nhấp vào modal container
+        const modalContainers = document.querySelectorAll('.js-modal-container');
+
+        modalContainers.forEach(function (modalContainer) {
+            modalContainer.addEventListener('click', function (event) {
+                event.stopPropagation(); // Ngừng sự kiện nổi bọt để ngăn đóng modal
+            });
+        });
+
+        modalLogin.addEventListener('click', closeLogin)
+        modalSignup.addEventListener('click', closeSignup)
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const prevButton = document.querySelector(".prev");
+            const nextButton = document.querySelector(".next");
+            const slides = document.querySelector(".slides");
+            const slideContainer = document.querySelector(".slide-container");
+            const slideCount = slides.childElementCount;
+            const visibleSlides = 3; // Số lượng slide hiển thị trên màn hình
+
+            let slideIndex = 0;
+
+            function calculateSlideMove() {
+                const slideWidth = slideContainer.offsetWidth / visibleSlides;
+                const slideMargin = parseFloat(window.getComputedStyle(slides.firstElementChild).marginRight);
+                return (slideWidth + slideMargin) * slideIndex;
+            }
+
+            function updateButtonVisibility() {
+                if (slideIndex === 0) {
+                    prevButton.classList.add("disabled");
+                } else {
+                    prevButton.classList.remove("disabled");
+                }
+
+                if (slideIndex >= slideCount - visibleSlides) {
+                    nextButton.classList.add("disabled");
+                } else {
+                    nextButton.classList.remove("disabled");
+                }
+            }
+
+            nextButton.addEventListener("click", () => {
+                slideIndex++;
+                slides.style.transform = `translateX(-${calculateSlideMove()}px)`;
+                updateButtonVisibility();
+            });
+
+            prevButton.addEventListener("click", () => {
+                slideIndex--;
+                slides.style.transform = `translateX(-${calculateSlideMove()}px)`;
+                updateButtonVisibility();
+            });
+            updateButtonVisibility(); // Cập nhật trạng thái ban đầu của nút prev và next
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Lấy tất cả các phần tử .choose__address-item
+            const addressItems = document.querySelectorAll(".choose__address-item");
+
+            // Lặp qua mỗi phần tử .choose__address-item và gắn sự kiện click
+            addressItems.forEach(function (item) {
+                item.addEventListener("click", function () {
+                    // Lấy nội dung của phần tử .choose__address-item được chọn
+                    const selectedAddress = item.innerText;
+
+                    // Gán nội dung của phần tử .choose__address-item vào phần tử .choose__address
+                    const chooseAddress = document.querySelector(".choose__address");
+                    chooseAddress.innerText = selectedAddress;
+
+                    // Sau khi chọn, ẩn danh sách các địa chỉ đi
+                    const addressList = document.querySelector(".choose__address-list");
+                });
+            });
+        });
+
+    </script>
+   @*  <script>
+        function translateLanguage() {
+            // Chuyển đổi ngôn ngữ từ Tiếng Việt sang Tiếng Anh bằng cách sử dụng dịch vụ Google Translate
+            // URL của trang web hiện tại sẽ được chèn vào để Google Translate có thể dịch nội dung của trang web
+            window.location.href = `https://translate.google.com/translate?hl=en${window.location.href}`;
+        }
+    </script> *@
+    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script>
+        window.onpageshow = function () {
+            if (window.performance && window.performance.navigation.type === 2) {
+                window.location.reload(); // Tải lại trang khi nó được tải từ bộ nhớ cache
+            }
+        };
+    </script>
+
+</body>
+</html>

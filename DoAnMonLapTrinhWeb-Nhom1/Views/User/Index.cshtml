@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DoAnMonLapTrinhWeb_Nhom1.Models.TaiKhoan>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/Layoutadmin.cshtml";
+}
+
+<h1>Quản lý thông tin tài khoản</h1>
+
+<p>
+    <a class="btn__function" asp-action="Add">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenNguoiDung)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sdt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gplx)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenNguoiDung)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sdt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Gplx)
+                </td>
+                <td>
+                    <a class="btn__function" asp-action="Display" asp-route-email="@item.Email">Details</a> |
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,106 @@
+﻿@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
+@{
+    ViewData["Title"] = "Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    <h1>Sửa thông tin tài khoản</h1>
+</div>
+
+<div class="content">
+    <div class="modal__container js-modal-container">
+        <div style="padding:32px" class="modal__body-infor">
+            @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.ErrorMessage
+                </div>
+            }
+            <form asp-action="Update" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="@Model.TaiKhoan.Email" />
+                <div class="form-group">
+                    <label class="col-md-3 control-label modal__lable">Tên người dùng</label>
+                    <div class="col-md-9">
+                        <input class="form-control modal__input" asp-for="@Model.TaiKhoan.TenNguoiDung" required />
+                        <span asp-validation-for="@Model.TaiKhoan.TenNguoiDung" class="textdanger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label modal__lable">Số điện thoại</label>
+                    <div class="col-md-9">
+                        <input class="form-control modal__input" asp-for="@Model.TaiKhoan.Sdt" />
+                        <span asp-validation-for="@Model.TaiKhoan.Sdt" class="textdanger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label modal__lable">Địa chỉ</label>
+                    <div class="col-md-9">
+                        <input class="form-control modal__input" asp-for="@Model.TaiKhoan.DiaChi" />
+                        <span asp-validation-for="@Model.TaiKhoan.DiaChi" class="textdanger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label modal__lable">Ngày sinh</label>
+                    <div class="col-md-9">
+                        <input class="form-control modal__input" asp-for="@Model.TaiKhoan.NgaySinh" required />
+                        <span asp-validation-for="@Model.TaiKhoan.NgaySinh" class="textdanger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label modal__lable">Giấy phép lái xe</label>
+                    <div class="col-md-9">
+                        <input class="form-control modal__input" asp-for="@Model.TaiKhoan.Gplx"
+                               required />
+                        <span asp-validation-for="@Model.TaiKhoan.Gplx" class="textdanger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-3 control-label modal__lable">Ảnh đại điện</label>
+                    <div class="col-md-9">
+                        <img class="modal__input-img" src="@Html.DisplayFor(model => model.TaiKhoan.Avarta)" alt="Avatar" />
+                        <input type="file" name="Avatar" class="form-control " />
+                        <span asp-validation-for="@Model.TaiKhoan.Avarta" class="text-danger"></span>
+                    </div>
+                </div>
+                <a asp-action="ChangePassword" asp-route-email="@Model.TaiKhoan.Email" class="change_password btn__function">Đổi mật khẩu</a>
+                <input type="submit" value="Lưu" class="btn modal__btn"></input>
+            </form>
+        </div>
+</div>
+
+<script>
+        // Đợi cho tài liệu HTML được tải hoàn toàn trước khi thực thi mã JavaScript
+        document.addEventListener("DOMContentLoaded", function () {
+            // Chọn input file
+            var input = document.querySelector('input[type="file"]');
+
+            // Lắng nghe sự kiện khi người dùng chọn file
+            input.addEventListener('change', function () {
+                // Kiểm tra xem người dùng đã chọn file nào chưa
+                if (input.files && input.files[0]) {
+                    // Tạo một đối tượng FileReader mới
+                    var reader = new FileReader();
+
+                    // Lắng nghe sự kiện khi FileReader đã đọc file thành công
+                    reader.onload = function (e) {
+                        // Hiển thị hình ảnh trong modal__input-img
+                        var imgElement = document.querySelector('.modal__input-img');
+                        imgElement.src = e.target.result;
+                    };
+
+                    // Đọc file hình ảnh dưới dạng URL
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
+        });
+
+</script>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+
+

@@ -1,0 +1,109 @@
+/* PC */
+@media(min-width:1024px) {
+    #mobile-menu{
+        display: none;
+    }
+}
+
+/* Tablet */
+@media(min-width:768px) and (max-width:1023px) {
+
+    .container{
+        max-width: 720px;
+    }
+
+    #header .header-top{
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    #header .header-nav{
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    .header-nav .full-logo{
+        left: 38px;
+        top: 5px;
+        
+    }
+    .header-nav-container-item{
+        display: none;
+    }
+    
+    .login{
+        margin-right: 10px;
+    }
+
+    #header .header-line{
+        height: 38px;
+        right: 40px;
+    }
+
+    #mobile-menu{
+        padding: 20px 20px;
+    }
+
+    .background__title{
+        margin:  0 70px;
+        font-size: 48px;
+    }
+
+    .background-line{
+        margin: -60px 170px;
+    }
+
+    .background__msg{
+        margin: 54px 200px 150px 240px;
+    }
+
+    .search__form{
+        padding: 16px;
+        margin: 0 8px;
+    }
+    .choose__address{
+        font-size: 16px;
+    }
+
+    .search__form-address .choose{
+        margin-left: 24px;
+    }
+    .search__form-item{
+        margin-left: 10px;
+    }
+    .search__form-item .date{
+        margin-left: 40px;
+    }
+
+    .date-rent,
+    .date-return{
+        font-size: 16px;
+    }
+    .col-item{
+        width: 48%;
+    }
+}
+
+/* Tablet Mobile*/
+@media(max-width:1023px)
+{
+
+}
+
+/* Mobile */
+@media(max-width:767px) {
+    .container{
+        max-width: 540px;
+    }
+    .col-item{
+        width: 100%;
+    }
+    header{
+        width: 100%;
+    }
+
+    .footer__about{
+        flex-direction: column;
+    }
+
+}
