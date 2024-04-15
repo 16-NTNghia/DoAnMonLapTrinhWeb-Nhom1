@@ -8,20 +8,28 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using X.PagedList;
+using Microsoft.Extensions.Caching.Memory;
+using System.Net.Mail;
+using System.Net;
 
 namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 {
     
     public class HomeController : Controller
     {
-        private readonly QuanLyThueXeMayTuLaiContext _context;
+		private readonly QuanLyThueXeMayTuLaiContext _context;
+		private readonly IConfiguration _configuration;
+		private readonly IMemoryCache _cache;
 
-        public HomeController(QuanLyThueXeMayTuLaiContext context)
-        {
-            _context = context;
-        }
+		public HomeController(QuanLyThueXeMayTuLaiContext context, IConfiguration configuration, IMemoryCache cache)
+		{
+			_context = context;
+			_configuration = configuration;
+			_cache = cache;
+		}
 
-        public async Task<IActionResult> Index(int? page)
+
+		public async Task<IActionResult> Index(int? page)
         {
             int pageSize = 4;
             
@@ -136,5 +144,114 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
         public IActionResult NoSee() {
             return View();
         }
-    }
+		public void SendMail(string to, string subject, string content)
+		{
+			var from = _configuration["SMTPConfig:SenderAddress"];
+			var displayname = _configuration["SMTPConfig:SenderDisplayName"];
+			var pass = _configuration["SMTPConfig:Password"];
+
+
+			var fromAddress = new MailAddress(from, displayname);
+			var toAddress = new MailAddress(to);
+			var smtp = new SmtpClient
+			{
+				Host = _configuration["SMTPConfig:Host"],
+				Port = int.Parse(_configuration["SMTPConfig:Port"]),
+				EnableSsl = bool.Parse(_configuration["SMTPConfig:EnableSsl"]),
+				DeliveryMethod = SmtpDeliveryMethod.Network,
+				UseDefaultCredentials = false,
+				Credentials = new NetworkCredential(fromAddress.Address, pass)
+			};
+
+			using (var message = new MailMessage(fromAddress, toAddress)
+			{
+				Subject = subject,
+				Body = content,
+				IsBodyHtml = true
+			})
+			{
+				smtp.Send(message);
+			}
+		}
+		public async Task<IActionResult> forgotpassword()
+		{
+			var viewmodel = new UserViewModel();
+			return View(viewmodel);
+		}
+		[HttpPost]
+		public async Task<IActionResult> forgotpassword(UserViewModel model)
+		{
+			var viewModel = new UserViewModel
+			{
+				Register = model.Register,
+			};
+			var existingUser = await _context.TaiKhoans.FirstOrDefaultAsync(u => u.Email == model.Register.Email);
+			if (existingUser != null)
+			{
+				string subject = "Forgot Password?";
+				string resetToken = Guid.NewGuid().ToString();
+				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromSeconds(30));
+				_cache.Set(resetToken, existingUser.Email, cacheOptions);
+
+				// Tạo đường dẫn reset password với token
+				string resetPasswordUrl = Url.Action("Resetpassword", "Home", new { email = existingUser.Email, token = resetToken }, Request.Scheme);
+
+				//string resetPasswordUrl = Url.Action("Resetpassword", "Home", new { email = existingUser.Email }, Request.Scheme);
+				string body = $@"
+                            <html>
+                            <body>
+                                <h2>Are you forgot password?</h2>
+                                <p>Please click the button below to reset password:</p>
+                                <a href=""{resetPasswordUrl}""><button type=""submit"">Reset password</button></a>
+                            </body>
+                            </html>";
+				SendMail(existingUser.Email, subject, body);
+				return RedirectToAction("Index", "Home");
+			}
+			return View(viewModel);
+		}
+
+		public async Task<IActionResult> Resetpassword(string email, string token)
+		{
+			if (_cache.TryGetValue(token, out string userEmail))
+			{
+				// Xóa token từ bộ nhớ cache sau khi sử dụng
+				_cache.Remove(token);
+
+				// Lấy thông tin tài khoản cần đặt lại mật khẩu
+				var reset = await _context.TaiKhoans.FirstOrDefaultAsync(x => x.Email == email);
+				if (reset != null)
+				{
+					var viewModel = new UserViewModel
+					{
+						Register = reset
+					};
+					return View(viewModel);
+				}
+			}
+			//var reset = await _context.TaiKhoans.FirstOrDefaultAsync(x => x.Email == email);
+			//var viewModel = new UserViewModel
+			//{
+			//    Register = reset,
+			//};
+			return RedirectToAction("Index", "Home");
+		}
+		[HttpPost]
+		public async Task<IActionResult> Resetpassword(UserViewModel model)
+		{
+			var viewModel = new UserViewModel
+			{
+				Register = model.Register,
+			};
+			var existingUser = await _context.TaiKhoans.FirstOrDefaultAsync(u => u.Email == model.Register.Email);
+			if (existingUser != null)
+			{
+				existingUser.MatKhau = BCrypt.Net.BCrypt.HashPassword(model.Register.MatKhau);
+				_context.SaveChangesAsync();
+				return RedirectToAction("Index", "Home");
+			}
+			return View(viewModel);
+		}
+
+	}
 }
