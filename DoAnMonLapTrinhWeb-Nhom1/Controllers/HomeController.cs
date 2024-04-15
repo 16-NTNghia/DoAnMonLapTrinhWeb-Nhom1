@@ -24,7 +24,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
         public async Task<IActionResult> Index(int? page)
         {
             int pageSize = 4;
-            if (page == null) page = 1;
+            
 			int pageNumber = page ?? 1;
 			DateTime Ngaynhan = DateTime.Now;
             DateTime Ngaytra = Ngaynhan.AddDays(1);
