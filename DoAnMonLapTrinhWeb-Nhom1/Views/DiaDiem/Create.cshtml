@@ -6,7 +6,7 @@
 }
 @if (TempData["Message"] != null)
 {
-    <div class="alert alert-danger" role="alert">
+    <div class="alert alert-danger" role="alert" id="alertMessage">
         @TempData["Message"]
     </div>
 }
@@ -37,3 +37,14 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử thông báo
+        var alertElement = document.getElementById('alertMessage');
+
+        // Ẩn thông báo tự động sau 5 giây
+        setTimeout(function () {
+            alertElement.style.display = 'none'; // Ẩn thông báo
+        }, 5000);
+    });
+</script>

@@ -82,12 +82,12 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
                         // Lưu yêu cầu đặt xe vào cơ sở dữ liệu
                         _context.YeuCauDatXes.Add(userViewModel.datXe);
                         await _context.SaveChangesAsync();
-                        TempData["SuccessMessage"] = "Order thành công!";
+                        TempData["Message"] = "Order thành công!";
                         return RedirectToAction("Index", "Home");
                     }
                 }
                 // Gán giá trị Email cho đối tượng yeucaudatxe
-                TempData["ErrorMessage"] = "Order thất bại!";
+                TempData["Message"] = "Order thất bại!";
                 return View();
             }
         }

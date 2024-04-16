@@ -53,9 +53,11 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
                 {
                     _context.KhuyenMais.Add(khuyenmai);
                     _context.SaveChanges();
+                    TempData["Message"] = "Đã tạo mới thành công.";
                     return RedirectToAction("Index", "Promo"); // Chuyển hướng đến trang chính sau khi thêm thành công
                 }
             }
+            TempData["Message"] = "tạo mới không thành công.";
             return View();
         }
         public async Task<IActionResult> Update(int makhuyenmai)
@@ -80,8 +82,10 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
                 kmupdate.NgayKhuyenMai = khuyenmai.NgayKhuyenMai;
                 kmupdate.PhanTramKhhuyenMai = khuyenmai.PhanTramKhhuyenMai;
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Đã  cập nhật thành công.";
                 return RedirectToAction("Index", "Promo");
             }
+            TempData["Message"] = "Cập nhật không thành công.";
             return View(khuyenmai);
         }
         public async Task<IActionResult> Delete(int makhuyenmai)
@@ -113,6 +117,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
 
             _context.KhuyenMais.Remove(km);
             await _context.SaveChangesAsync();
+            TempData["Message"] = "Đã xóa thành công.";
             return RedirectToAction(nameof(Index)); // Chuyển hướng đến action Index sau khi xóa thành công
         }
     }

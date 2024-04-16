@@ -1,46 +1,46 @@
 ﻿ @model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-div class="content">
-<div class="modal__container js-modal-container">
-	<div style="padding:32px" class="modal__body-infor">
-		<form asp-action="ThanhToan" asp-controller="HoaDonThueXe" method="post">
-			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
-				<label class="control-label modal__lable">Biển số xe</label>
-				<input style="outline:none" readonly asp-for="datXe.BienSoXe" class="form-control modal__input" />
-			</div>
-			<div class="form-group">
-				<label class="control-label modal__lable">Chủ Xe</label>
-				<input style="outline:none" readonly asp-for="datXe.BienSoXeNavigation.Email" class="form-control modal__input" />
-			</div>
-			<div class="form-group">
-				<label class="control-label modal__lable">Khách thuê</label>
-				<input style="outline:none" readonly asp-for="datXe.Email" class="form-control modal__input" />
-			</div>
-			<div class="form-group">
-				<label class="control-label modal__lable">Giá thuê 1 ngày</label>
-				<input style="outline:none" readonly asp-for="Xe.GiaThue" class="form-control modal__input" />
-			</div>
-			<div class="form-group">
-				<label class="control-label modal__lable">Số ngày thuê xe</label>
-				<input style="outline:none" readonly asp-for="datXe.SoNgayThue" class="form-control modal__input" />
-			</div>
-			<div class="form-group">
-				<label class="control-label modal__lable">Tổng tiền</label>
-				<p>@Model.TinhTong()</p>
-			</div>
-			<div class="form-group">
-				<label class="control-label modal__lable">Phương thức thanh toán</label>
-				<select asp-for="HoaDon.MaPhuongThuc" class="form-control modal__input" asp-items="ViewBag.PhuongThucs"></select>
-				<span asp-validation-for="Xe.MaDiaDiem" class="text-danger"></span>
-			</div>
-			<button type="submit" class="btn btn-primary">Thanh Toán</button>
-		</form>
+<div class="content">
+	<div class="modal__container js-modal-container">
+		<div style="padding:32px" class="modal__body-infor">
+			<form asp-action="ThanhToan" asp-controller="HoaDonThueXe" method="post">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Biển số xe</label>
+					<input style="outline:none" readonly asp-for="datXe.BienSoXe" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Chủ Xe</label>
+					<input style="outline:none" readonly asp-for="datXe.BienSoXeNavigation.Email" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Khách thuê</label>
+					<input style="outline:none" readonly asp-for="datXe.Email" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Giá thuê 1 ngày</label>
+					<input style="outline:none" readonly asp-for="Xe.GiaThue" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Số ngày thuê xe</label>
+					<input style="outline:none" readonly asp-for="datXe.SoNgayThue" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Tổng tiền</label>
+					<p>@Model.TinhTong()</p>
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Phương thức thanh toán</label>
+					<select asp-for="HoaDon.MaPhuongThuc" class="form-control modal__input" asp-items="ViewBag.PhuongThucs"></select>
+					<span asp-validation-for="Xe.MaDiaDiem" class="text-danger"></span>
+				</div>
+				<button type="submit" class="btn btn-primary">Thanh Toán</button>
+			</form>
+		</div>
 	</div>
-</div>
 </div>
 

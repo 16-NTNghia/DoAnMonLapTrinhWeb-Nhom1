@@ -72,15 +72,17 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
                 var existingUser = await _context.TaiKhoans.FirstOrDefaultAsync(u => u.Email == model.Register.Email);
                 if (existingUser != null)
                 {
-                    ViewBag.ErrorMessage = "Tên đăng nhập đã tồn tại.";
+                    TempData["Message"] = "Tên đăng nhập đã tồn tại.";
                     return RedirectToAction("Index", "Home");
                 }
                 model.Register.MatKhau = BCrypt.Net.BCrypt.HashPassword(model.Register.MatKhau);
                 model.Register.IdchucVu = 2;
                 _context.TaiKhoans.Add(model.Register);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Đăng ký thành công.";
                 return RedirectToAction("Index", "Home");
             }
+            TempData["Message"] = "Đăng ký không thành công.";
             return RedirectToAction("Index", "Home");
         }
         [HttpPost]
@@ -106,19 +108,22 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
                     {
                     };
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
+                    TempData["Message"] = "Đăng nhập thành công.";
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    ViewBag.ErrorMessage = "Tên đăng nhập hoặc mật khẩu không đúng.";
+                    TempData["Message"] = "Tên đăng nhập hoặc mật khẩu không đúng.";
                     return RedirectToAction("Index", "Home");
                 }
             }
+            TempData["Message"] = "Đăng nhập không thành công.";
             return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            TempData["Message"] = "Đã đăng xuất";
             return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> Menu()
@@ -201,7 +206,6 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
                             </body>
                             </html>";
 				SendMail(existingUser.Email, subject, body);
-				return RedirectToAction("Index", "Home");
 			}
 			return View(viewModel);
 		}
@@ -224,7 +228,8 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 					return View(viewModel);
 				}
 			}
-			return RedirectToAction("Index", "Home");
+            TempData["Message"] = "Mã không hợp lệ";
+            return RedirectToAction("Index", "Home");
 		}
 		[HttpPost]
 		public async Task<IActionResult> Resetpassword(UserViewModel model)
@@ -238,9 +243,11 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 			{
 				existingUser.MatKhau = BCrypt.Net.BCrypt.HashPassword(model.Register.MatKhau);
 				_context.SaveChangesAsync();
-				return RedirectToAction("Index", "Home");
+                TempData["Message"] = "Đổi mật khẩu thành công.";
+                return RedirectToAction("Index", "Home");
 			}
-			return View(viewModel);
+            TempData["Message"] = "Mật khẩu không hợp lệ";
+            return View(viewModel);
 		}
 
 	}

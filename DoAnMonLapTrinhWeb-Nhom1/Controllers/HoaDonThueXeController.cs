@@ -53,12 +53,12 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 					};
 					return View(viewModel);
 				}
-				ViewBag.Message = "Thông tin không hợp lệ";
+                TempData["Message"] = "Thông tin không hợp lệ";
 				return RedirectToAction("Index", "Home");
 			}
 			else
 			{
-				ViewBag.Message = "Hóa đơn hết hạn thanh toán";
+                TempData["Message"] = "Hóa đơn hết hạn thanh toán";
 				return RedirectToAction("Index", "Home");
 			}
 			
@@ -77,10 +77,10 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 				hoaDon.TongDonGia = model.Xe.GiaThue * model.datXe.SoNgayThue;
 				_context.HoaDons.Add(hoaDon);
 				await _context.SaveChangesAsync();
-				ViewBag.Message = "Thanh toán thành công";
+				TempData["Message"] = "Thanh toán thành công";
 				return RedirectToAction("Index", "Home");
 			}
-			ViewBag.Message = "Lỗi thanh toán";
+			TempData["Message"] = "Lỗi thanh toán";
 			return RedirectToAction("Index", "Home");
 		}
 

@@ -141,7 +141,8 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
             {
                 if (await _context.Xes.AnyAsync(p => p.BienSoXe == xe.BienSoXe))
                 {
-                    ViewBag.ErrorMessage("Biển số xe đã tồn tại.");
+                    TempData["Message"] = "Biển số xe đã tồn tại.";
+                    return RedirectToAction("Index", "CustomerBike");
                 }
                 else
                 {
@@ -157,12 +158,13 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
                     xe.HinhAnh4 = "/Images/bike/default.jpg";
                     _context.Xes.Add(xe);
                     await _context.SaveChangesAsync();
-
+                    TempData["Message"] = "Tạo mới thành công.";
                     return RedirectToAction("Index", "CustomerBike"); // Chuyển hướng đến trang chính sau khi thêm thành công
                     
                 }
             }
             // Trả về view với model nếu có lỗi
+            TempData["Message"] = "Tạo mới không thành công.";
             return View();
         }
 
@@ -250,6 +252,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
                 }
                 xeupdate.MoTa = xe.MoTa;
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Cập nhật không thành công.";
                 return RedirectToAction("Index", "CustomerBike");
             }
         }
@@ -310,7 +313,6 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
                             </body>
                             </html>";
 				SendMail(existingUser.Email, subject, body);
-				return RedirectToAction("Index", "Home");
 			}
             var xelist = await _context.Xes.Where(p => p.Email == username).ToListAsync();
             var datxeList = await _context.YeuCauDatXes.Where(p => p.BienSoXeNavigation.Email == username && p.TrangThaiChapNhan == false).ToListAsync();
@@ -322,6 +324,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
             };
 
             // Chuyển hướng về view CheckOrder để kiểm tra kết quả đã được cập nhật chưa
+            TempData["Message"] = "Đã Chấp nhận yêu cầu.";
             return View("Index", viewmodel);
         }
 
@@ -353,6 +356,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
             };
 
             // Chuyển hướng về view CheckOrder để kiểm tra kết quả đã được cập nhật chưa
+            TempData["Message"] = "Đã từ chối yêu cầu.";
             return View("Index", viewmodel);
         }
 

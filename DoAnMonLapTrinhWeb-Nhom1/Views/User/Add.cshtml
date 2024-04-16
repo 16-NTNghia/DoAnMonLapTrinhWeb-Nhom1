@@ -5,6 +5,12 @@
     Layout = "~/Views/Shared/Layoutadmin.cshtml";
 }
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Message"]
+    </div>
+}
 <h1>Thêm tài khoản</h1>
 
 <h4>TaiKhoan</h4>

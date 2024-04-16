@@ -4,7 +4,12 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/Layoutadmin.cshtml";
 }
-
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger" role="alert" id="alertMessage">
+        @TempData["Message"]
+    </div>
+}
 <h1>Quản lý khuyến mãi</h1>
 
 <p>
@@ -53,3 +58,14 @@
         }
     </tbody>
 </table>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử thông báo
+        var alertElement = document.getElementById('alertMessage');
+
+        // Ẩn thông báo tự động sau 5 giây
+        setTimeout(function () {
+            alertElement.style.display = 'none'; // Ẩn thông báo
+        }, 5000);
+    });
+</script>

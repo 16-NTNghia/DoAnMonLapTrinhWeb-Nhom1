@@ -5,6 +5,12 @@
 }
  @model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
 @using X.PagedList.Mvc.Core
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger" role="alert" id="alertMessage">
+        @TempData["Message"]
+    </div>
+}
 @await Html.PartialAsync("Find")
 <div class="promo-section">
     <div class="container">
@@ -34,4 +40,14 @@
     </div>
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử thông báo
+        var alertElement = document.getElementById('alertMessage');
 
+        // Ẩn thông báo tự động sau 5 giây
+        setTimeout(function () {
+            alertElement.style.display = 'none'; // Ẩn thông báo
+        }, 5000);
+    });
+</script>

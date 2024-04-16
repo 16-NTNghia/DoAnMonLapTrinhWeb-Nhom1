@@ -56,7 +56,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
             var existingUser = await _context.TaiKhoans.FirstOrDefaultAsync(u => u.Email == taiKhoan.Email);
             if (existingUser != null)
             {
-                ViewBag.ErrorMessage = "Tên đăng nhập đã tồn tại.";
+                TempData["Message"] = "Tên đăng nhập đã tồn tại.";
                 return RedirectToAction("Index", "Home");
             }
             taiKhoan.MatKhau = BCrypt.Net.BCrypt.HashPassword(taiKhoan.MatKhau);
@@ -77,9 +77,11 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
                 {
                     _context.TaiKhoans.Add(taiKhoan);
                     _context.SaveChanges();
+                    TempData["Message"] = "Tạo mới thành công.";
                     return RedirectToAction("Index", "User"); // Chuyển hướng đến trang chính sau khi thêm thành công
                 }
             }
+            TempData["Message"] = "Tạo mới không thành công.";
             return View(); // Trả về view với model nếu có lỗi
         }
         

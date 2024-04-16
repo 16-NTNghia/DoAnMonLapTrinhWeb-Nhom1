@@ -60,7 +60,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
                     return RedirectToAction("Index", "HangXe"); // Chuyển hướng đến trang chính sau khi thêm thành công
                 }
             }
-
+            TempData["Message"] = "Tạo mới không thành công.";
             return View();
         }
         public async Task<IActionResult> Delete(int mahangxe)

@@ -69,6 +69,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
                     tkupdate.Avarta = await SaveImage(Avatar);
                 }
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Cập nhật không thành công.";
                 return RedirectToAction("Update", "UserInfor", new { email = taikhoan.Email });
             }
         }
@@ -121,21 +122,14 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
             // Kiểm tra mật khẩu cũ có đúng không
             if (!BCrypt.Net.BCrypt.Verify(oldPassword, user.MatKhau))
             {
-                ViewBag.ErrorMessage = "Mật khẩu cũ không đúng.";
-                return RedirectToAction("ChangePassword", "UserInfor", new { email = taikhoan.Email });
-            }
-
-            // Kiểm tra mật khẩu mới và mật khẩu xác nhận có khớp nhau không
-            if (newPassword != confirmPassword)
-            {
-                ViewBag.ErrorMessage = "Mật khẩu mới và mật khẩu xác nhận không khớp.";
+                TempData["Message"] = "Mật khẩu cũ không đúng.";
                 return RedirectToAction("ChangePassword", "UserInfor", new { email = taikhoan.Email });
             }
 
             // Hash mật khẩu mới và lưu vào cơ sở dữ liệu
             user.MatKhau = BCrypt.Net.BCrypt.HashPassword(newPassword);
             await _context.SaveChangesAsync();
-
+            TempData["Message"] = "đổi mật khẩu thành công.";
             return RedirectToAction("Index", "Home");
         }
     }
