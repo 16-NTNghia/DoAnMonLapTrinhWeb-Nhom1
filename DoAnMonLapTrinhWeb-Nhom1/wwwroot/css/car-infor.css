@@ -1,4 +1,4 @@
-.car__header {
+﻿.car__header {
     position: fixed;
     left: 0;
     right: 0;
@@ -381,3 +381,35 @@
 .btn__bike--create {
     margin-left: 20px;
 }
+
+.pagination {
+    display: flex;
+    list-style: none;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0;
+}
+
+    .pagination li {
+        padding: 8px 8px;
+        border: 1px solid #ccc;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        color: #333;
+        padding: 5px 10px;
+        border-radius: 3px;
+        transition: background-color 0.3s ease;
+    }
+
+        .pagination a:hover {
+            background-color: #f0f0f0;
+        }
+
+    .pagination .active a {
+        background-color: #337ab7;
+        color: #fff;
+    }
+

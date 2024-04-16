@@ -13,6 +13,7 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
 {
+    [Authorize(Roles = SD.Role_Customer)]
     public class CustomerBikeController : Controller
     {
         private readonly QuanLyThueXeMayTuLaiContext _context;
@@ -150,7 +151,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
                     // Lưu hình ảnh vào thư mục và cập nhật đường dẫn vào đối tượng xe
                     xe.HinhAnh1 = await SaveImage(HinhAnh1);
                     xe.Email = username;
-                    xe.Hide= false;
+                    xe.Hide= true;
                     xe.HinhAnh2 = "/Images/bike/default.jpg";
                     xe.HinhAnh3 = "/Images/bike/default.jpg";
                     xe.HinhAnh4 = "/Images/bike/default.jpg";

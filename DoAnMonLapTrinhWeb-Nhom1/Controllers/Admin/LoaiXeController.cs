@@ -34,8 +34,10 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
             {
                 loaiXeUpdate.TenLoai = loaiXe.TenLoai;
                 _context.SaveChangesAsync();
+                TempData["Message"] = "Đã cập nhật thành công.";
                 return RedirectToAction("Index", "ManageLoaiXe");
             }
+            TempData["Message"] = "Cập nhật không thành công.";
             return View(loaiXe);
         }
 
@@ -54,9 +56,11 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
                 {
                     _context.LoaiXes.Add(loaixe);
                     _context.SaveChanges();
-                    return RedirectToAction("Index", "ManageLoaiXe"); // Chuyển hướng đến trang chính sau khi thêm thành công
+                    TempData["Message"] = "Đã tạo mới thành công.";
+                    return RedirectToAction("Index", "LoaiXe"); // Chuyển hướng đến trang chính sau khi thêm thành công
                 }
             }
+            TempData["Message"] = "Tạo mới không thành công.";
             return View();
         }
         public async Task<IActionResult> Delete(int maloai)
@@ -70,8 +74,19 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
         [HttpPost]
         public async Task<IActionResult> Delete(LoaiXe loaixe)
         {
+            var hasForeignKey = await _context.Xes.AnyAsync(b => b.MaLoai == loaixe.MaLoai);
+
+            if (hasForeignKey)
+            {
+                // Nếu tồn tại khóa ngoại, hiển thị thông báo không xóa được
+                TempData["Message"] = "Không thể xóa hãng xe này vì tồn tại khóa ngoại.";
+
+                // Chuyển hướng đến trang Index hoặc trang trước đó
+                return RedirectToAction(nameof(Index));
+            }
             _context.LoaiXes.Remove(loaixe);
             await _context.SaveChangesAsync();
+            TempData["Message"] = "Đã xóa thành công.";
             return RedirectToAction("Index"); // Chuyển hướng đến action Index sau khi xóa thành công
         }
     }

@@ -3,7 +3,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-
+ @model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
+@using X.PagedList.Mvc.Core
 @await Html.PartialAsync("Find")
 <div class="promo-section">
     <div class="container">
@@ -26,6 +27,9 @@
         <h1 class="car__section-title">Xe Dành Cho Bạn</h1>
         <div class="row">
             @await Html.PartialAsync("BikeRent")
+        </div>
+        <div style="color: blue">
+            @Html.PagedListPager(Model.XePageList, page => Url.Action("Index", new { page }), PagedListRenderOptions.ClassicPlusFirstAndLast)
         </div>
     </div>
 </div>

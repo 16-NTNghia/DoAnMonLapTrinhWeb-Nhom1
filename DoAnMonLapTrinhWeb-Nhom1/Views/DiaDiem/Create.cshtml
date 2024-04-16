@@ -4,7 +4,12 @@
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/Layoutadmin.cshtml";
 }
-
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        @TempData["Message"]
+    </div>
+}
 <h1>Thêm địa điểm</h1>
 
 <h4>DiaDiem</h4>

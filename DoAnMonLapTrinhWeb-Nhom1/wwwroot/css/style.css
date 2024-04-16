@@ -926,3 +926,29 @@ a.order__check-link {
     border-radius:100%;
     border:0.5px solid #ccc;
 }
+
+.alert {
+    position: relative;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+    .alert-danger hr {
+        border-top-color: #f1b0b7;
+    }
+
+    .alert-danger .alert-link {
+        color: #491217;
+    }
+
+        .alert-danger .alert-link:hover {
+            color: #491217;
+        }

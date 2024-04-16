@@ -39,8 +39,10 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
             {
                 _context.Add(diaDiem);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Đã tạo mới thành công.";
                 return RedirectToAction(nameof(Index));
             }
+            TempData["Message"] = "Tạo mới không thành công.";
             return View(diaDiem);
         }
 
@@ -76,6 +78,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
                 {
                     _context.Update(diaDiem);
                     await _context.SaveChangesAsync();
+                    TempData["Message"] = "Đã cập nhật thành công.";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -90,6 +93,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
                 }
                 return RedirectToAction(nameof(Index));
             }
+            TempData["Message"] = "Cập nhật không thành công.";
             return View(diaDiem);
         }
 
@@ -116,9 +120,22 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Admin
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(DiaDiem diadiem)
         {
+            var hasForeignKey = await _context.Xes.AnyAsync(b => b.MaDiaDiem == diadiem.MaDiaDiem);
+
+            if (hasForeignKey)
+            {
+                // Nếu tồn tại khóa ngoại, hiển thị thông báo không xóa được
+                TempData["Message"] = "Không thể xóa địa điểm này vì tồn tại khóa ngoại.";
+
+                // Chuyển hướng đến trang Index hoặc trang trước đó
+                return RedirectToAction(nameof(Index));
+            }
+
+            // Nếu không có khóa ngoại tồn tại, tiến hành xóa đối tượng DiaDiem
             var diaDiem = await _context.DiaDiems.FirstOrDefaultAsync(p => p.MaDiaDiem == diadiem.MaDiaDiem);
             _context.DiaDiems.Remove(diaDiem);
             await _context.SaveChangesAsync();
+            TempData["Message"] = "Đã xóa địa điểm thành công.";
             return RedirectToAction(nameof(Index));
         }
 
