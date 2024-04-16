@@ -1,9 +1,13 @@
-﻿using DoAnMonLapTrinhWeb_Nhom1.Models;
+﻿using System.Net.Mail;
+using System.Net;
+using DoAnMonLapTrinhWeb_Nhom1.Models;
 using DoAnMonLapTrinhWeb_Nhom1.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
@@ -12,12 +16,16 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
     public class CustomerBikeController : Controller
     {
         private readonly QuanLyThueXeMayTuLaiContext _context;
+		private readonly IConfiguration _configuration;
+		private readonly IMemoryCache _cache;
 
-        public CustomerBikeController(QuanLyThueXeMayTuLaiContext context)
-        {
-            _context = context;
-        }
-        public async Task<IActionResult> Index(TaiKhoan taikhoan)
+		public CustomerBikeController(QuanLyThueXeMayTuLaiContext context, IConfiguration configuration, IMemoryCache cache)
+		{
+			_context = context;
+			_configuration = configuration;
+			_cache = cache;
+		}
+		public async Task<IActionResult> Index(TaiKhoan taikhoan)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -142,7 +150,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
                     // Lưu hình ảnh vào thư mục và cập nhật đường dẫn vào đối tượng xe
                     xe.HinhAnh1 = await SaveImage(HinhAnh1);
                     xe.Email = username;
-                    xe.Hide= true;
+                    xe.Hide= false;
                     xe.HinhAnh2 = "/Images/bike/default.jpg";
                     xe.HinhAnh3 = "/Images/bike/default.jpg";
                     xe.HinhAnh4 = "/Images/bike/default.jpg";
@@ -277,11 +285,32 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
             if (yeuCauDatXe == null)
             {
                 return NotFound();
-            }
+			}
+			yeuCauDatXe.TrangThaiChapNhan = true; // Đánh dấu yêu cầu đã được chấp nhận
+			await _context.SaveChangesAsync();
+			var existingUser = await _context.TaiKhoans.FirstOrDefaultAsync(u => u.Email == email);
+			if (existingUser != null)
+			{
+				string subject = "ĐẶT XE THÀNH CÔNG";
+				string thanhtoantoken = Guid.NewGuid().ToString();
+				var cacheOptions = new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromDays(1));
+				string combinedData = $"{existingUser.Email}|{bienSoXe}";
+				_cache.Set(thanhtoantoken, combinedData, cacheOptions);
 
-            yeuCauDatXe.TrangThaiChapNhan = true; // Đánh dấu yêu cầu đã được chấp nhận
-            
-            await _context.SaveChangesAsync();
+				// Tạo đường dẫn reset password với token
+				string ThanhToanUrl = Url.Action("Index", "HoaDonThueXe", new { token = thanhtoantoken }, Request.Scheme);
+
+				//string resetPasswordUrl = Url.Action("Resetpassword", "Home", new { email = existingUser.Email }, Request.Scheme);
+				string body = $@"
+                            <html>
+                            <body>
+                                <p>Bạn đã thuê thành công xe mang số hiệu ""{bienSoXe}""</p>
+                                <a href=""{ThanhToanUrl}""><button type=""submit"">thanh toán</button></a>
+                            </body>
+                            </html>";
+				SendMail(existingUser.Email, subject, body);
+				return RedirectToAction("Index", "Home");
+			}
             var xelist = await _context.Xes.Where(p => p.Email == username).ToListAsync();
             var datxeList = await _context.YeuCauDatXes.Where(p => p.BienSoXeNavigation.Email == username && p.TrangThaiChapNhan == false).ToListAsync();
             var viewmodel = new UserViewModel()
@@ -330,6 +359,34 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
         {
             return PartialView();
         }
-        
-    }
+		public void SendMail(string to, string subject, string content)
+		{
+			var from = _configuration["SMTPConfig:SenderAddress"];
+			var displayname = _configuration["SMTPConfig:SenderDisplayName"];
+			var pass = _configuration["SMTPConfig:Password"];
+
+
+			var fromAddress = new MailAddress(from, displayname);
+			var toAddress = new MailAddress(to);
+			var smtp = new SmtpClient
+			{
+				Host = _configuration["SMTPConfig:Host"],
+				Port = int.Parse(_configuration["SMTPConfig:Port"]),
+				EnableSsl = bool.Parse(_configuration["SMTPConfig:EnableSsl"]),
+				DeliveryMethod = SmtpDeliveryMethod.Network,
+				UseDefaultCredentials = false,
+				Credentials = new NetworkCredential(fromAddress.Address, pass)
+			};
+
+			using (var message = new MailMessage(fromAddress, toAddress)
+			{
+				Subject = subject,
+				Body = content,
+				IsBodyHtml = true
+			})
+			{
+				smtp.Send(message);
+			}
+		}
+	}
 }

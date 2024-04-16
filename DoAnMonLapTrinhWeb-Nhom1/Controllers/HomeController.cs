@@ -32,24 +32,19 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 		public async Task<IActionResult> Index(int? page)
         {
             int pageSize = 4;
-            
+            if (page == null) page = 1;
 			int pageNumber = page ?? 1;
 			DateTime Ngaynhan = DateTime.Now;
             DateTime Ngaytra = Ngaynhan.AddDays(1);
             YeuCauDatXe datXe = new YeuCauDatXe();
             datXe.NgayNhan = Ngaynhan;
             datXe.NgayTra = Ngaytra;
-            List<SelectListItem> LoaiXe = new List<SelectListItem>();
             List<SelectListItem> DiaDiems = new List<SelectListItem>();
             string username = User.Identity.Name;
             var datxeList = await _context.YeuCauDatXes.Where(p => p.BienSoXeNavigation.Email == username && p.TrangThaiChapNhan == false).ToListAsync();
             foreach (var item in _context.DiaDiems)
             {
                 DiaDiems.Add(new SelectListItem { Value = item.MaDiaDiem.ToString(), Text = item.TenDiaDiem });
-            }
-            foreach (var item in _context.LoaiXes)
-            {
-                LoaiXe.Add(new SelectListItem { Value = item.MaLoai.ToString(), Text = item.TenLoai });
             }
             ViewBag.DiaDiems = DiaDiems;
 			var XePageList = await _context.Xes.Where(p => p.Hide == false).ToPagedListAsync(pageNumber, pageSize);
@@ -194,7 +189,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 				_cache.Set(resetToken, existingUser.Email, cacheOptions);
 
 				// Tạo đường dẫn reset password với token
-				string resetPasswordUrl = Url.Action("Resetpassword", "Home", new { email = existingUser.Email, token = resetToken }, Request.Scheme);
+				string resetPasswordUrl = Url.Action("Resetpassword", "Home", new { token = resetToken }, Request.Scheme);
 
 				//string resetPasswordUrl = Url.Action("Resetpassword", "Home", new { email = existingUser.Email }, Request.Scheme);
 				string body = $@"
@@ -211,7 +206,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 			return View(viewModel);
 		}
 
-		public async Task<IActionResult> Resetpassword(string email, string token)
+		public async Task<IActionResult> Resetpassword(string token)
 		{
 			if (_cache.TryGetValue(token, out string userEmail))
 			{
@@ -219,7 +214,7 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 				_cache.Remove(token);
 
 				// Lấy thông tin tài khoản cần đặt lại mật khẩu
-				var reset = await _context.TaiKhoans.FirstOrDefaultAsync(x => x.Email == email);
+				var reset = await _context.TaiKhoans.FirstOrDefaultAsync(x => x.Email == userEmail);
 				if (reset != null)
 				{
 					var viewModel = new UserViewModel
@@ -229,11 +224,6 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers
 					return View(viewModel);
 				}
 			}
-			//var reset = await _context.TaiKhoans.FirstOrDefaultAsync(x => x.Email == email);
-			//var viewModel = new UserViewModel
-			//{
-			//    Register = reset,
-			//};
 			return RedirectToAction("Index", "Home");
 		}
 		[HttpPost]

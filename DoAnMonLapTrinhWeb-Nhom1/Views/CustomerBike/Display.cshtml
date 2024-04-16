@@ -1,61 +1,70 @@
 ﻿@model DoAnMonLapTrinhWeb_Nhom1.ViewModels.UserViewModel
 
 @{
-    ViewData["Title"] = "Display";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Display";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="content">
-    <h1>Chi tiết xe</h1>
+	<h1>Chi tiết xe</h1>
 </div>
 
 
 <div class="content">
-    <div class="modal__container js-modal-container">
-        <div style="padding:32px" class="modal__body-infor">
-            <form asp-action="Update">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Xe.BienSoXe" />
-                <div class="form-group">
-                    <label class="control-label modal__lable">Địa điểm</label>
-                    <input style="outline:none" readonly asp-for="Xe.MaDiaDiemNavigation.TenDiaDiem" class="form-control modal__input" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label modal__lable">Hảng xe</label>
-                    <input style="outline:none" readonly asp-for="Xe.MaHangXeNavigation.TenHang" class="form-control modal__input" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label modal__lable">Loại xe</label>
-                    <input style="outline:none" readonly asp-for="Xe.MaLoaiNavigation.TenLoai" class="form-control modal__input" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label modal__lable">Tên xe</label>
-                    <input style="outline:none" readonly asp-for="Xe.TenXe" class="form-control modal__input" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label modal__lable">Năm sản xuất</label>
-                    <input style="outline:none" readonly asp-for="Xe.NamSanXuat" class="form-control modal__input" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label modal__lable">Giá thuê</label>
-                    <input style="outline:none" readonly asp-for="Xe.GiaThue" class="form-control modal__input" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label modal__lable">Nhiên liệu</label>
-                    <input style="outline:none" readonly asp-for="Xe.NhienLieu" class="form-control modal__input" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label modal__lable">Phân khối</label>
-                    <input style="outline:none" readonly asp-for="Xe.MaLucPhanKhoi" class="form-control modal__input" />
-                </div>
-                <div class="form-group">
-                    <label class="control-label modal__lable">Mô tả</label>
-                    <input style="outline:none" readonly asp-for="Xe.MoTa" class="form-control modal__input" />
-                </div>
-            </form>
-        </div>
-        <div>
-            <a class="btn__function" asp-action="Update" asp-route-biensoxe="@Model.Xe.BienSoXe">Edit</a> |
-            <a class="btn__function" asp-action="Index">Back to List</a>
-        </div>
-    </div>
+	<div class="modal__container js-modal-container">
+		<div style="padding:32px" class="modal__body-infor">
+			<form asp-action="Update">
+				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Hình ảnh</label>
+					<div>
+						<img style="max-height: 150px" src="@Model.Xe.HinhAnh1" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Biển số xe</label>
+					<input style="outline:none" readonly asp-for="Xe.BienSoXe" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Địa điểm</label>
+					<input style="outline:none" readonly asp-for="Xe.MaDiaDiemNavigation.TenDiaDiem" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Hảng xe</label>
+					<input style="outline:none" readonly asp-for="Xe.MaHangXeNavigation.TenHang" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Loại xe</label>
+					<input style="outline:none" readonly asp-for="Xe.MaLoaiNavigation.TenLoai" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Tên xe</label>
+					<input style="outline:none" readonly asp-for="Xe.TenXe" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Năm sản xuất</label>
+					<input style="outline:none" readonly asp-for="Xe.NamSanXuat" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Giá thuê</label>
+					<input style="outline:none" readonly asp-for="Xe.GiaThue" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Nhiên liệu</label>
+					<input style="outline:none" readonly asp-for="Xe.NhienLieu" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Phân khối</label>
+					<input style="outline:none" readonly asp-for="Xe.MaLucPhanKhoi" class="form-control modal__input" />
+				</div>
+				<div class="form-group">
+					<label class="control-label modal__lable">Mô tả</label>
+					<input style="outline:none" readonly asp-for="Xe.MoTa" class="form-control modal__input" />
+				</div>
+			</form>
+		</div>
+		<div>
+			<a class="btn__function" asp-action="Update" asp-route-biensoxe="@Model.Xe.BienSoXe">Edit</a> |
+			<a class="btn__function" asp-action="Index">Back to List</a>
+		</div>
+	</div>
 </div>

@@ -4,6 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
 <div class="car__body">
     <div class="car__header">
         <div class="container">
@@ -129,7 +130,17 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn__rent">Chọn thuê</button>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <button type="submit" class="btn btn__rent">Chọn thuê</button>
+                        }
+                        else
+                        {
+                            <button type="button" class="btn btn__rent" onclick="showLoginAlert()">Chọn thuê</button>
+                        }
+                        <div id="loginAlert" class="alert alert-danger" role="alert" style="display: none;">
+                            <h2 style="color: red">Vui lòng đăng nhập để tiếp tục.</h2>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,6 +170,12 @@
     </div>
 </div>
 
+<script>
+    function showLoginAlert() {
+        var loginAlert = document.getElementById('loginAlert');
+        loginAlert.style.display = 'block';
+    }
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {

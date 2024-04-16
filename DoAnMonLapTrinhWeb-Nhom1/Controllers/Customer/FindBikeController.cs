@@ -22,8 +22,9 @@ namespace DoAnMonLapTrinhWeb_Nhom1.Controllers.Customer
                                                             p.TrangThaiChapNhan == false).ToListAsync();
             var xeList = await _context.Xes.Where(p => p.MaDiaDiem == userViewModel.DiaDiem.MaDiaDiem &&
                                             !p.YeuCauDatXes.Any(y =>
-           y.NgayTra.Date >= userViewModel.datXe.NgayTra.Date &&
-           y.TrangThaiChapNhan == true)).ToListAsync();
+			                                y.NgayNhan.Date <= userViewModel.datXe.NgayTra.Date &&
+				                            y.NgayTra.Date >= userViewModel.datXe.NgayNhan.Date &&
+                                            y.TrangThaiChapNhan == true) && p.Hide == false).ToListAsync();
 
             var viewmodel = new UserViewModel
             {
